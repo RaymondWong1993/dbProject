@@ -30,4 +30,5 @@ urlpatterns += patterns('demo.views',
     url(r'^restaurantDetail/$', 'restaurantDetail'),
     url(r'^login/$', 'login'),
     url(r'^logout/$', 'logout'),
+    url(r'^order/$', 'order'),
 )

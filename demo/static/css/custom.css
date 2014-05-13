@@ -16,7 +16,7 @@ html {
   margin: 130px auto;
 }
 
-.modal-dialog .modal-content {
+.login-modal-content {
   width: 500px;
   height: 300px;
   margin-left: auto;

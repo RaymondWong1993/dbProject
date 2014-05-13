@@ -38,32 +38,53 @@ function checkLogIn() {
 
 function signIn(avaliable) {
 	emailTag = $("#email");
+	accountTag = $('#account');
 	passwdTag = $("#passwd");
+	passwdAccountTag = $('#passwdAcound')
 	email = emailTag.val();
+	account = accountTag.val();
 	passwd = passwdTag.val();
-	if (email == '' || passwd == '') {
-		alert('登录失败!')
+	passwdAccount = passwdAccountTag.val();
+	if ($('#userLoginBtn').prop('checked') && (email == '' || passwd == '')) {
+		alert('食客登录失败!');
+		return;
+	}
+	if ($('#restaurantLoginBtn').prop('checked') && (account == '' || passwdAccount == '')) {
+		alert('account: '+account+' password: '+passwd+'\n餐厅登录失败!');
 		return;
 	}
 	show = ['logoutBtn'];
 	hide = ['registerBtn', 'signInBoxBtn'];
 		account = $('#account').val();
 		if (avaliable == 1) {
-		    $.post('/login',
+		    $.post('/login/',
               {
 					    		'email': email,
                   'password': passwd,
                   'type': 'customer',
-              });
+              }, function(data, status) {
+									if (status == 'success') {
+											window.location = '/home/';
+									} else {
+											alert('User login failed!');
+									}
+							});
         show.push('myAccountBtn');
         changeBtn(show, hide);
     } else {
-        $.post('/login',
+        $.post('/login/',
               {
 					    		'account': account,
-                  'password': passwd,
+                  'password': passwdAccount,
                   'type': 'restaurant',
-              });
+              }, 
+							 function(data, status) {
+									if (status == 'success') {
+											window.location = '/home/';
+									} else {
+											alert('Restaurant login failed!');
+									}
+							});
         show.push('myRestaurantBtn');
         changeBtn(show, hide);
     }

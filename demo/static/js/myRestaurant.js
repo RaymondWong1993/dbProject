@@ -5,6 +5,7 @@ $(document).ready(function() {
     var deleteBtns = $('.glyphicon');
     var addBtn = $('#addBtn');
     var sure_addBtn = $('#sure_addBtn');
+    var cancel_addBtn = $('#cancel_addBtn');
     changeBtn();
     informationBtn.click(function() {
         pageTurning(1);
@@ -26,8 +27,42 @@ $(document).ready(function() {
     });
     sure_addBtn.click(function() {
         addFood();
+        postData();
     });
+    cancel_addBtn.click(function() {
+				cancel();
+		});
 });
+
+function cancel() {
+		$('#addBox').slideToggle('slow');
+		$('#sure_addBtn').fadeToggle('normal');
+		$('#cancel_addBtn').fadeToggle('normal', function() {
+				$('#addBtn').fadeToggle('normal');
+		});
+
+    $('#addFoodImage').val('');
+		$('#addFoodName').val('');
+		$('#addFoodKinds').val('');
+		$('#addFoodPrice').val('');
+		$('#addFoodIntro').val('');
+}
+
+function postData() {
+		var image = $('#addFoodImage').val();
+		var name = $('#addFoodName').val();
+		var price = $('#addFoodPrice').val();
+		var kinds = $('#addFoodKinds').val();
+		var describe = $('#addFoodIntro').val();
+		$.post('/myRestaurant/',
+					 {
+							 image: image,
+							 name: name,
+							 price: price,
+							 kinds: kinds,
+							 describe: describe
+					 });
+}
 
 function changeBtn() {
     $('#signInBoxBtn').css('display','none');
@@ -73,21 +108,34 @@ function showAddBox() {
     var addBox = $('#addBox');
     var sure_addBtn = $('#sure_addBtn');
     var addBtn = $('#addBtn');
-    sure_addBtn.fadeToggle('slow');
-    addBtn.fadeToggle('slow');
+    var cancel_addBtn = $('#cancel_addBtn');
+    addBtn.fadeToggle('slow', function() {
+				sure_addBtn.fadeToggle('slow');
+				cancel_addBtn.fadeToggle('slow');
+		});
     addBox.slideToggle("slow", function() {
         var offset = parseInt($('body').scrollTop()) + 200;
         $('body').scrollTop(offset);
     });
 }
 
+function getPath(fileQuery, id) {
+		var file = fileQuery[0].files[0];
+		var reader = new FileReader();
+    reader.onload = function(e) {
+				$('#foodBox'+id).find('img').attr('src', e.target.result);
+		};
+    reader.readAsDataURL(file);
+}
+
 function addFood() {
-    var image = $('#addFoodImage').val();
+    var image = $('#addFoodImage');
     var foodName = $('#addFoodName').val();
     var foodPrice = $('#addFoodPrice').val();
     var foodIntro = $('#addFoodIntro').val();
-    image = image.split("\\");
-    image = "images/" + image[image.length-1];
+    var foodKinds = $('#addFoodKinds').val();
+    // image = image.split("\\");
+    // image = "/static/images/" + image[image.length-1];
     // hide add box
     var addBox = $('#addBox');
     var sure_addBtn = $('#sure_addBtn');
@@ -101,30 +149,36 @@ function addFood() {
         // add new foodBox
         var newNode  = '<a href="javascript:void(0)" class="list-group-item foodBoxs" style="overflow: hidden;" id="foodBox'+id+'">'+
         '<div class="row myOrderRow">'+
-        '<img class="col-xs-3" src="'+image+'" style="width: 200px;"/>'+
-        '<div class="col-xs-3">'+
+        '<img class="col-xs-3" src="'+'" style="width: 200px; height: 150px;"/>'+
+        '<div class="col-xs-2">'+
         '  <p>菜名：</p>'+
         '  <p>'+foodName+'</p>'+
         '</div>'+
-        '<div class="col-xs-3">'+
+        '<div class="col-xs-2">'+
         ' <p>单价：</p>'+
         ' <p>'+foodPrice+'元/份</p>'+
         '</div>'+
+				'<div class="col-xs-2">'+
+				' <p>菜系：</p>'+
+				' <p>'+foodKinds+'</p>'+
+				'</div>'+
         '<div class="col-xs-3">'+
         ' <p>介绍：</p>'+
         ' <p>'+foodIntro+'</p>'+
         '</div>'+
         '<div>'+
-        ' <span class="glyphicon glyphicon-remove" style="position:relative; left:20px;" id="deleteBtn'+id+'"></span>'+
+        ' <span class="glyphicon glyphicon-remove" style="float: right; margin-right: 10px;" id="deleteBtn'+id+'"></span>'+
         '</div>'+
         '</div>'+
         '</a>'
         $('#mainFoodBox').append(newNode);
+        getPath(image, id);
         addBtn.fadeToggle("slow");
         $('#addFoodName').val('');
         $('#addFoodImage').val('');
         $('#addFoodIntro').val('');
         $('#addFoodPrice').val('');
+				$('#addFoodKinds').val('');
         var offset = parseInt($('body').scrollTop()) + 400;
         $('body').scrollTop(offset);
     });

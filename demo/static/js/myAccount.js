@@ -3,7 +3,7 @@ $(document).ready(function() {
     var shoppingHistoryBtn = $("#shoppingHistoryBtn");
     var myOrderBtn = $('#myOrderBtn');
     var creditBtn = $('#myCreditBtn');
-    changeBtn();
+    //changeBtn();
     selfIntroductionBtn.click(function() {
         pageTurning(1);
     });

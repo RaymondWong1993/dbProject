@@ -33,16 +33,16 @@
     <!-- ==================================End of selfIntroduction=========================== -->
     <!-- ==================================myOrder=========================================== -->
     <div id="myOrderBox" class="box">
-    <div class="list-group">
+    <div class="list-group" id="orderBox">
       {% for o in order %}
-      <a href="#" class="list-group-item">
+      <a class="list-group-item" data-toggle="modal" data-target="#order">
         <div class="row myOrderRow">
           <p class="col-xs-4">餐厅：</p>
-          <p class="col-xs-4">{{ o.name }}</p>
+          <p class="col-xs-4" id="myOrderRestaurant">{{ o.name }}</p>
         </div>
         <div class="row myOrderRow">
           <p class="col-xs-4">预订时间：</p>
-          <p class="col-xs-4">{{ o.date }}</p>
+          <p class="col-xs-4" id="myOrderDate">{{ o.date }}</p>
         </div>
         <div class="row myOrderRow">
           <p class="col-xs-4">总金额：</p>
@@ -72,9 +72,11 @@
     </div>
     <!-- ==================================End of shoppingHistory============================ -->
   </div>
+  {% include 'parts/order.html' %}
   <!-- ==================================End of Main Container============================= -->
   <script src="/static/js/jquery-1.10.2.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
   <script src="/static/js/myAccount.js"></script>
+	<script src="/static/js/order.js"></script>
 </body>
 </html>
