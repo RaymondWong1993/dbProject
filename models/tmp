@@ -1,0 +1,110 @@
+import datetime
+from flask import g
+from sqlalchemy import exc, MetaData, Table, Column, Integer, String, ForeignKey, Sequence, DateTime, Text, text
+from sqlalchemy.sql import select
+from common.config import DEBUG
+from common.db import initDb
+
+if DEBUG:
+    conn = initDb()
+else:
+    conn = g.conn
+
+metadata = MetaData()
+businesses = Table('yummy_business', metadata,
+    Column('id', Integer, Sequence('yummy_business_seq'), primary_key=True),
+    Column('joinTime', DateTime, default=datetime.datetime.now()),
+    Column('username', String(32), unique=True),
+    Column('hashpw', String(60)),
+    Column('salt', String(29)),
+    Column('nickname', String(64), default='', unique=True),
+    Column('description', Text, default='Unknown'),
+    Column('logo', String(128), default=''),
+    Column('address', String(128), default=''),
+    Column('contact', String(128), default=''),
+)
+
+fields = ('id', 'joinTime', 'username', 'hashpw', 'salt', 'nickname', 'description', 'logo', 'address', 'contact')
+
+class Business(object):
+    def __init__(self, **kwargs):
+        self.__dict__ = kwargs
+
+    def save(self):
+        try:
+            conn.execute(businesses.insert(), **self.__dict__)
+        except exc.IntegrityError as e:
+            code, msg = e.orig
+            if code == 1062:
+                return msg
+            else:
+                return 'Error'
+
+        return None
+
+    def modify(self, **kwargs):
+        if not hasattr(self, 'id'):
+            return False
+
+        conn.execute(businesses.update().where(businesses.c.id==self.id).values(**kwargs))
+        for k in kwargs.keys():
+            self.__dict__[k] = kwargs[k]
+
+        return True
+
+    @staticmethod
+    def initTable():
+        metadata.drop_all(conn)
+        metadata.create_all(conn)
+
+    @staticmethod
+    def queryById(id=None):
+        result = conn.execute(select([businesses]).where(businesses.c.id == id)).fetchone()
+        if not result:
+            return None
+
+        b = {}
+        for key, val in zip(fields, result):
+            b[key] = val
+
+        return Business(**b)
+
+    @staticmethod
+    def queryByUsername(username=None):
+        result = conn.execute(select([businesses]).where(businesses.c.username == username)).fetchone()
+        if not result:
+            return None
+
+        b = {}
+        for key, val in zip(fields, result):
+            b[key] = val
+
+        return Business(**b)
+
+    @staticmethod
+    def queryAll():
+        results = conn.execute(select([businesses]))
+        if not results:
+            return None
+
+        bs = []
+        for r in results:
+                b = {}
+                for key, val in zip(fields, r):
+                    b[key] = val
+
+                bs.append(Business(**b))
+
+        return bs
+
+    @staticmethod
+    def deleteById():
+        pass
+
+    @staticmethod
+    def deleteByUsername():
+        pass
+
+    @staticmethod
+    def deleteAll():
+        pass

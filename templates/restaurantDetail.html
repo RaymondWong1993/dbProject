@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yummy!</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/carousel.css">
+  <link rel="stylesheet" href="/static/css/restaurantDetail.css">
+</head>
+<body>
+  {% include 'parts/nav-bar.html' %}
+  <!-- =====================================Main Contaienr========================================== -->
+  <div class="container">
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-sm-3">
+        <div class="thumbnail">
+          <img src={{ info.image }} style="width:80%" alt="...">
+          <div class="caption">
+            <h3 style="text-align:center;">{{ info.name }}</h3>
+            <p>地址：</p><p>{{ info.address }}</p>
+            <p>电话：</p><p>{{ info.contact }}</p>
+            <p>{{ info.describe }}</p>
+          </div>
+        </div>
+      </div>
+      <ul class="media-list col-sm-9" id="list">
+        {% for food in foods %}
+        <li class="media" style="border: 1px solid #ddd; padding: 10px; border-radius: 4px;">
+          <a class="pull-left">
+            <img class="media-object" src={{ food.image }} style="width: 150px;">
+          </a>
+          <div class="media-body">
+            <div class="input-group col-sm-2" style="float:right;">
+              <span class="input-group-addon">
+                <input type="checkbox">
+              </span>
+              <input type="text" class="form-control" placeholder="(份)">
+            </div><!-- /input-group -->
+            <h4 class="media-heading">{{ food.name }}</h4>
+            <p>{{ food.describe }}</p>
+            <p class="price">{{ food.price }}元/份</p>
+          </div><!-- media-body -->
+        </li>
+        {% endfor %}
+      </ul><!-- media list-->
+    </div>
+    <a class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal" type="button" style="float: right" id="submitBtn">提交订单</a>
+  </div><!-- container -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" style="text-align: center">订单内容</h4>
+        </div>
+        <div class="modal-body table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                <th>菜名</th>
+                <th>数量</th>
+                <th>价格（元）</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4"></div>
+            <p class="col-xs-2"><strong>总金额：</strong></p>
+            <p class="col-xs-2"><strong id="totalPrice"></strong></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">取消</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- =====================================End of Main Container=================================== -->
+  <script src="/static/js/jquery-1.10.2.js"></script>
+  <script src="/static/js/jquery.cookie.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/restaurantDetail.js"></script>
+</body>
+</html>
