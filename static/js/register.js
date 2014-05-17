@@ -17,14 +17,14 @@ $(document).ready(function() {
 });
 
 function changeContent(avaliable) {
-    if (avaliable == 1) {
+    if (avaliable == 1 && $('#userBox').css('display') == 'none') {
         var showBox = $('#userBox');
         var hiddenBox = $('#restaurantBox');
         hiddenBox.fadeToggle('fast', function() {
             showBox.fadeToggle('fast');
             $('.modal-content-custom').css('height','400px');
         });
-    } else {
+    } else if (avaliable == 2 && $('#restaurantBox').css('display') == 'none') {
         var showBox = $('#restaurantBox');
         var hiddenBox = $('#userBox');
         hiddenBox.fadeToggle('fast', function() {
@@ -41,19 +41,19 @@ function submit(avaliable) {
     var restaurantBtn = $('#restaurantBtn');
     var data_ = {};
     if (avaliable == 1) {
-        var phone = $('#phone').val();
-        var email = $('#email').val();
-        var password = $('#password').val();
+        var phone = $('#userBox').find('#phone').val();
+        var email = $('#userBox').find('#email').val();
+        var password = $('#userBox').find('#password').val();
         data_['contact'] = phone;
         data_['username'] = email;
         data_['hashpw'] = password;
 				data_['type'] = 'yummy_user';
     } else {
-        var name = $('#name').val();
-        var address = $('#address').val();
-        var contact = $('#contact').val();
-        var account = $('#account').val();
-        var password = $('#password').val();
+        var name = $('#restaurantBox').find('#name').val();
+        var address = $('#restaurantBox').find('#address').val();
+        var contact = $('#restaurantBox').find('#contact').val();
+        var account = $('#restaurantBox').find('#account').val();
+        var password = $('#restaurantBox').find('#password').val();
         data_['name'] = name;
         data_['address'] = address;
         data_['username'] = account;
@@ -61,9 +61,18 @@ function submit(avaliable) {
 				data_['contact'] = contact;
 				data_['type'] = 'yummy_business';
     }
-    $.post('/register',
+    $.post('/register/',
           data_,
           function(data,status) {
-              alert(status);
+							if (status == 'success') {
+									if (data.resp == 1) {
+											window.location = '/home/';
+									} else {
+											alert('1注册失败！');
+											window.location = '/register/';
+									}
+							} else {
+									alert('2注册失败！');
+							}
           });
 }

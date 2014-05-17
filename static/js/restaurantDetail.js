@@ -17,31 +17,6 @@ $(document).ready(function() {
 	});
 })
 
-/*
-function checkLogin() {
-    show = ['logoutBtn'];
-    hide = ['signInBoxBtn', 'registerBtn'];
-    alert($.cookie('user'));
-    if (typeof $.cookie('user') != 'undefined' && typeof $.cookie('type') != 'undefined') {
-        if ($.cookie('type') == 'customer') {
-            show.push('myAccountBtn');
-        } else {
-            show.push('myRestaurant');
-        }
-        changeBtn(show, hide);
-    }
-}
-
-function changeBtn(show, hide) {
-    $.each(show, function(i, val) {
-        $('#'+val).css('display', 'block');
-    });
-    $.each(hide, function(i, val) {
-        $('#'+val).css('display', 'none');
-    });
-}
-*/
-
 function getOrder() {
 	var li = $('#list').children();
     li.each(function() {

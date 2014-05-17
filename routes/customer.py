@@ -30,12 +30,13 @@ def register():
         return render_template('register.html')
     else:
         if request.form.get('type') == 'yummy_user':
+            print dict(request.form)
             try:
                 User(
                     username=request.form.get('username'),
                     contact=request.form.get('contact'),
                     hashpw=request.form.get('hashpw'),
-                    name=request.form.get('name'),
+                    name=request.form.get('username'),
                 ).save()
             except Exception as e:
                 print str(e)
