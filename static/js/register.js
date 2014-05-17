@@ -44,9 +44,10 @@ function submit(avaliable) {
         var phone = $('#phone').val();
         var email = $('#email').val();
         var password = $('#password').val();
-        data_['phone'] = phone;
-        data_['email'] = email;
-        data_['password'] = password;
+        data_['contact'] = phone;
+        data_['username'] = email;
+        data_['hashpw'] = password;
+				data_['type'] = 'yummy_user';
     } else {
         var name = $('#name').val();
         var address = $('#address').val();
@@ -54,9 +55,11 @@ function submit(avaliable) {
         var account = $('#account').val();
         var password = $('#password').val();
         data_['name'] = name;
-        data_['address'] = contact;
-        data_['account'] = account;
-        data_['password'] = password;
+        data_['address'] = address;
+        data_['username'] = account;
+        data_['hashpw'] = password;
+				data_['contact'] = contact;
+				data_['type'] = 'yummy_business';
     }
     $.post('/register',
           data_,
