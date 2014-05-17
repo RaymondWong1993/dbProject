@@ -35,15 +35,13 @@ def register():
                     username=request.form.get('username'),
                     contact=request.form.get('contact'),
                     hashpw=request.form.get('hashpw'),
-                    name=request.form.get('name'),
+                    name=request.form.get('username'),
                 ).save()
             except Exception as e:
-                print str(e)
                 return jsonify(resp=0)
 
             return jsonify(resp=1)
         elif request.form.get('type') == 'yummy_business':
-            print dict(request.form)
             try:
                 Business(
                     username=request.form.get('username'),
