@@ -12,7 +12,6 @@ class Item(Base):
 
     id = Column(Integer, Sequence('yummy_item_seq'), primary_key=True)
     name = Column(String(32))
-    category = Column(String(32), nullable=True)
     price = Column(Integer, default=0)
     bookedNumber = Column(Integer, default=0)
     createTime = Column(DateTime, default=datetime.datetime.now())

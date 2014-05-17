@@ -10,6 +10,7 @@ class Business(User):
     id = Column(Integer,ForeignKey('yummy_user.id') , primary_key=True)
     image = Column(String(512), default='')
     address = Column(String(512), default='')
+    category = Column(String(32), nullable=True)
     joinTime = Column(DateTime, default=datetime.datetime.now())
 
     __mapper_args__ = {
