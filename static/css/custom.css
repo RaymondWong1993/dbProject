@@ -1,0 +1,106 @@
+html {
+  overflow-y: auto;
+}
+
+.navbar ul li {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+#myModal {
+  overflow-y: hidden;
+}
+
+.modal-dialog {
+  text-align: center;
+  margin: 130px auto;
+}
+
+.login-modal-content {
+  width: 500px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modal-dialog .modal-content .modal-body {
+  margin-top: 10px;
+}
+
+.modal-dialog .modal-content .modal-footer {
+  margin-top: 0px;
+}
+
+.modal-dialog .modal-content .modal-body .input-group {
+  margin-left: 50px;
+  width: 350px;
+}
+
+.modal-content form .row {
+  margin-top:0px;
+  text-align:center;
+}
+
+.modal-content form .row .col-lg-6 {
+  margin-left: 170px;
+}
+
+.modal-content form .row .col-lg-6 .input-group .input-group-addon {
+  width: 100px;
+  border:0px;
+  background-color:white;
+}
+
+.modal-content form .row .col-lg-6 .input-group .input-group-addon input {
+   margin-right: 30px;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.category-wrapper {
+  text-align: center;
+}
+
+.modal-footer {
+  padding-top: 15px;
+}
+
+.category {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  border-radius: 5px 5px;
+  width: 800px;
+  /* background-color: #ccc; */
+}
+
+.category ul li a {
+  color: #999;
+}
+
+.category ul .disabled a {
+  color: #646464;
+}
+
+.category hr {
+  margin: 0px;
+  color: #646464;
+}
+
+#carousel-example-generic {
+  margin: 0px;
+}
+
+.row {
+  margin-top: 50px;
+}
+
+.modal-body .row {
+  margin-top: 30px;
+}
+
+.myOrderRow {
+  margin-top: 0px;
+}
