@@ -13,16 +13,13 @@ def home():
     bs = Business.queryAll()
     fields = ('image', 'name', 'describe', )
     b_datas = []
-    a_raw = []
     for b in bs:
         b_data = {}
         for k in fields:
             b_data[k] = b.__dict__.get(k)
 
-        a_raw.append(b_data)
-        if len(a_raw) == 3:
-            b_datas.append(a_raw[:])
-            a_raw = []
+        b_datas.append(b_data)
+        b_data = {}
 
     return render_template('home.html',
         restaurants = b_datas)
