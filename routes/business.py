@@ -27,10 +27,8 @@ def showMyRestaurant():
 
 @app.route('/restaurantDetail/')
 def showRestaurantDetail():
-    if not session.get('user', None):
-        abort(400)
 
-    info = Business.queryByName(session['user'])
+    info = Business.queryByUsername(session['user'])
     if not info:
         abort(400)
     # info = {}
@@ -51,3 +49,18 @@ def showRestaurantDetail():
       foods.append(tmpFood)
 
     return render_template('restaurantDetail.html', info=info, foods=foods)
+
+@app.route('/listDisplay/')
+def listDisplay():
+    bs = Business.queryByCategory(request.args.get('', None))
+    b_datas = []
+    if bs:
+        fields = ('image', 'name', 'describe', )
+        for b in bs:
+            b_data = {}
+            for k in fields:
+                b_data[k] = b.__dict__.get(k)
+
+            b_datas.append(b_data)
+
+    return render_template('listDisplay.html', restaurants=b_datas)

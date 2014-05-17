@@ -11,15 +11,15 @@ from models import User, Business, Item, Order
 @app.route('/home/')
 def home():
     bs = Business.queryAll()
-    fields = ('image', 'name', 'describe', )
     b_datas = []
-    for b in bs:
-        b_data = {}
-        for k in fields:
-            b_data[k] = b.__dict__.get(k)
+    if bs:
+        fields = ('image', 'name', 'describe', )
+        for b in bs:
+            b_data = {}
+            for k in fields:
+                b_data[k] = b.__dict__.get(k)
 
-        b_datas.append(b_data)
-        b_data = {}
+            b_datas.append(b_data)
 
     return render_template('home.html',
         restaurants = b_datas)
@@ -93,22 +93,23 @@ def myAccount():
         abort(400)
 
     u = User.queryByUsername(session['user'])
+    if not u:
+        abort(400)
 
     userInfo = {}
-    userInfo['email'] = '549425036@qq.com'
-    userInfo['phone'] = '13826478796'
+    userInfo['email'] = u.username
+    userInfo['phone'] = u.contact
+    userInfo['name'] = u.name
     userInfo['address'] = '广东省广州市番禺区大学城中山大学至善园2号'
     userInfo['b_day'] = '1993-10-11'
-    userInfo['name'] = '黄佳博'
-    history = []
-    tmpHistory = {}
-    tmpHistory['name'] = '四海一家'
-    tmpHistory['date'] = '2014-5-6'
-    tmpHistory['price'] = '258'
-    for i in range(0,10):
-      history.append(tmpHistory)
-    
-    for h in history:
-      h['foods'] = []
 
-    return render_template('myAccount.html', userInfo=userInfo, history=history, order=history, user=session)
+    os =  Order.queryByCustomer(u.username)
+    f_datas = []
+    for o in os:
+        f = {}
+        f['name'] = o.business
+        f['date'] = o.createTime
+        f['price'] = o.totalPrice
+        f_datas.append(f)
+
+    return render_template('myAccount.html', userInfo=userInfo, history=f_datas, order=f_datas)

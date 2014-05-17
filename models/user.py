@@ -83,7 +83,7 @@ class User(Base):
             return None
 
         result = g.session.query(cls).filter_by(name=name).first()
-        if not result:
+        if result:
             g.session.expunge(result)
         return result
 

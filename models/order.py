@@ -13,8 +13,8 @@ class Order(Base):
     totalPrice = Column(Integer, default=0)
     status = Column(Integer, default=0)
     items = Column(Text, default='')
-    business_id = Column(Integer)
-    customer_id = Column(Integer)
+    business = Column(String(32))
+    customer = Column(String(32))
 
     def __repr__(self):
         return "<Order" + str(self.__dict__) + ">"
@@ -67,20 +67,20 @@ class Order(Base):
         return result
 
     @classmethod
-    def queryByBusinessId(cls, id=None):
-        if not id:
+    def queryByBusiness(cls, username=None):
+        if not username:
             return None
 
-        results = g.session.query(cls).filter_by(business_id=id).all()
+        results = g.session.query(cls).filter_by(business=username).all()
         g.session.expunge_all()
         return results
 
     @classmethod
-    def queryByCustomerId(cls, id=None):
-        if not id:
+    def queryByCustomer(cls, username=None):
+        if not username:
             return None
 
-        results = g.session.query(cls).filter_by(customer_id=id).all()
+        results = g.session.query(cls).filter_by(customer=username).all()
         g.session.expunge_all()
         return results
 

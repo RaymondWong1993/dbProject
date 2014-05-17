@@ -52,7 +52,7 @@ class Business(User):
             return None
 
         result = g.session.query(cls).filter_by(id=id).first()
-        if not result:
+        if result:
             g.session.expunge(result)
         return result
 
@@ -62,7 +62,7 @@ class Business(User):
             return None
 
         result = g.session.query(cls).filter_by(username=username).first()
-        if not result:
+        if result:
             g.session.expunge(result)
         return result
 
@@ -72,15 +72,27 @@ class Business(User):
             return None
 
         result = g.session.query(cls).filter_by(name=name).first()
-        if not result:
+        if result:
             g.session.expunge(result)
         return result
 
     @classmethod
     def queryAll(cls):
         results =  g.session.query(cls).all()
-        if not results:
-            g.session.expunge(results)
+        if results:
+            map(lambda r: g.session.expunge(r), results)
+
+        return results
+
+    @classmethod
+    def queryByCategory(cls, category=None):
+        if not category:
+            return None
+
+        results =  g.session.query(cls).filter_by(category=category).all()
+        if results:
+            map(lambda r: g.session.expunge(r), results)
+
         return results
 
     @classmethod
