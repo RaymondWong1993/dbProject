@@ -59,8 +59,8 @@ function signIn(avaliable) {
 		if (avaliable == 1) {
 		    $.post('/login/',
               {
-					    		'email': email,
-                  'password': passwd,
+					    		'username': email,
+                  'hashpw': passwd,
                   'type': 'customer',
               }, function(data, status) {
 									if (status == 'success') {

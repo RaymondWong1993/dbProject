@@ -45,7 +45,7 @@ function submit(avaliable) {
         var email = $('#email').val();
         var password = $('#password').val();
         data_['phone'] = phone;
-        data_['email'] = email;
+        data_['username'] = email;
         data_['password'] = password;
     } else {
         var name = $('#name').val();
@@ -55,8 +55,9 @@ function submit(avaliable) {
         var password = $('#password').val();
         data_['name'] = name;
         data_['address'] = contact;
-        data_['account'] = account;
+        data_['username'] = account;
         data_['password'] = password;
+        data_['contact'] = contact;
     }
     $.post('/register',
           data_,
