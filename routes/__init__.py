@@ -22,5 +22,14 @@ def teardown(e):
         print 'Datebase disconnects.'
         closeDb()
 
+@app.route('/initDatabase')
+def initializeDatabase():
+    if not app.debug:
+        abort(404)
+
+    from initDb import initDatabase
+    initDatabase()
+    return 'Init Database.'
+
 import routes.business
 import routes.customer

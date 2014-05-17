@@ -6,8 +6,7 @@ from models.user import User
 from models.item import Item
 from models.order import Order
 
-if __name__ == '__main__':
-
+def initDatabase():
     Business.init()
     User.init()
     Item.init()
