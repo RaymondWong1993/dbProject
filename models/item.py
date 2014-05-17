@@ -5,16 +5,14 @@ from flask import g
 
 Base = declarative_base()
 
-fields = ('id', 'itemname', 'hashpw', 'salt', 'nickname', 'sign', 'contact')
-
 class Item(Base):
     __tablename__ = 'yummy_item'
 
     id = Column(Integer, Sequence('yummy_item_seq'), primary_key=True)
     name = Column(String(32))
     price = Column(Integer, default=0)
-    bookedNumber = Column(Integer, default=0)
-    createTime = Column(DateTime, default=datetime.datetime.now())
+    image = Column(String(128), default="/static/images/default.png")
+    describe = Column(String(512), default='')
     supplier = Column(Integer)
 
     def __repr__(self):
@@ -65,11 +63,11 @@ class Item(Base):
         return results
 
     @classmethod
-    def queryByCategory(cls, category=None):
-        if not category:
+    def queryBySupplier(cls, supplier=None):
+        if not supplier:
             return None
 
-        results = g.session.query(cls).filter_by(category=category).all()
+        results = g.session.query(cls).filter_by(supplier=supplier).all()
         g.session.expunge_all()
         return results
 

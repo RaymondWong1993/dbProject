@@ -7,9 +7,23 @@ from flask import render_template, request, session, abort, redirect
 from routes import app
 from models import Business, User, Item, Order
 
-@app.route('/myRestaurant')
+@app.route('/myRestaurant/')
 def showMyRestaurant():
-    pass
+    if not session.get('user', None):
+        abort(400)
+
+    b = Business.queryByUsername(session['user'])
+    if not b:
+        abort(400)
+
+    info = {}
+    fields = ('image', 'name', 'address', 'contact', 'describe')
+    for f in fields:
+        info[f] = getattr(b, f)
+
+    print info
+    foods = Item.queryBySupplier(b.id)
+    return render_template('restaurantDetail.html', info=info, foods=foods)
 
 @app.route('/restaurantDetail/')
 def showRestaurantDetail():

@@ -8,7 +8,7 @@ class Business(User):
     __tablename__ = 'yummy_business'
 
     id = Column(Integer,ForeignKey('yummy_user.id') , primary_key=True)
-    image = Column(String(512), default='')
+    image = Column(String(512), default='/static/images/default.png')
     address = Column(String(512), default='')
     category = Column(String(32), nullable=True)
     joinTime = Column(DateTime, default=datetime.datetime.now())
