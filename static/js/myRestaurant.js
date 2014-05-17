@@ -21,6 +21,7 @@ $(document).ready(function() {
         id = id.substr(9);
         id = parseInt(id);
         deleteBox(id);
+				deleteFood(this);
     }); 
     addBtn.click(function() {
         showAddBox();
@@ -33,6 +34,26 @@ $(document).ready(function() {
 				cancel();
 		});
 });
+
+deleteFood(btn) {
+    var id_ = $(btn).attr(id).substr(9);
+		id_ = parseInt(id_);
+    var foodName = '#name' + toString(id_);
+    foodName = $(foodName).text();
+		$.post(/menuOperation/,
+					 {
+							 'operation': 'delete',
+							 'name': foodName
+					 },
+					 function(data, status) {
+							 if (status == 'success') {
+									 alert('删除成功！');
+							 } else {
+									 alert('删除失败！');
+							 }
+					 });
+		
+}
 
 function cancel() {
 		$('#addBox').slideToggle('slow');
@@ -182,4 +203,23 @@ function addFood() {
         var offset = parseInt($('body').scrollTop()) + 400;
         $('body').scrollTop(offset);
     });
+    $.post('/menuOperation/',
+					 {
+							 'operation': 'add',
+							 'name': foodName,
+							 'price': foodPrice,
+							 'describe': foodIntro,
+							 'image': image,
+							 'foodKinds': foodKinds
+					 }, function(data, status) {
+							 if (status == 'success') {
+									 if (data.resp == 1) {
+											 alert('添加菜式成功！');
+									 } else {
+											 alert('添加菜式失败！');
+									 }
+							 } else {
+									 alert('添加菜式失败！');
+							 }
+					 });
 }

@@ -15,7 +15,7 @@ function showContent(orderInfo) {
 		if (orderNum != '') {
 				$.post('/order/',
 							 {
-									 id: orderNum
+									 orderId: orderNum
 							 },
 							 function(data, status) {
 									 if (status == 'success') {
@@ -41,7 +41,6 @@ function showContent(orderInfo) {
 		} else {
 				$.post('/order/',
 							 {
-									 user: $('#userName').text(),
 									 restaurant: $('#myOrderRestaurant').text(),
 									 date: $('#myOrderDate').text()
 							 },
@@ -54,7 +53,7 @@ function showContent(orderInfo) {
 											 $('#orderDate').parent().css('display', 'block');
 											 $('#orderAddress').text(data.address);
 											 $('#orderAddress').parent().css('display', 'block');
-											 $('#orderPhone').text(data.phone);
+											 $('#orderPhone').text(data.contact);
 											 $('#orderPhone').parent().css('display', 'block');
 											 var orderDetail = data.detail;
 											 $.each(orderDetail, function(i, val) {
