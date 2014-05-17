@@ -71,7 +71,7 @@ def login():
         if not u:
             return jsonify(resp=0)
 
-        if u.hashpw != request.form.get('passwd'):
+        if u.hashpw != request.form.get('hashpw'):
             return jsonify(resp=0)
 
         session['user'] = request.form.get('username')
