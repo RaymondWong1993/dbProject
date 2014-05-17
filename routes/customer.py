@@ -72,7 +72,11 @@ def login():
             return jsonify(resp=0)
 
         session['user'] = request.form.get('username')
-        session['type'] = u.type
+        if u.type == 'yummy_user':
+            session['type'] = 'customer'
+        else:
+            session['type'] = 'restaurant'
+
         return jsonify(resp=1)
 
 @app.route('/logout/')
@@ -82,6 +86,7 @@ def logout():
 
     session.pop('user')
     session.pop('type')
+
     return redirect('/')
 
 @app.route('/myAccount/')
