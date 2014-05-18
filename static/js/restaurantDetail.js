@@ -50,12 +50,12 @@ function showOrder() {
 		counter = counter + 1;
 	}
 	$('#totalPrice').text(totalPrice+'元');
-	window.food = [];
-	window.count = [];
-	window.price = [];
+	// window.food = [];
+	// window.count = [];
+	// window.price = [];
 }
 
-function confirmOder() {
+function confirmOrder() {
 	$('.table').find('tbody').empty();
 	$.post('/restaurantDetail/',
 		   {
@@ -63,15 +63,21 @@ function confirmOder() {
 		   	count: window.count,
 		   	price: window.price
 		   },
-		   function(data) {
-		   	if (data.status == 'success') {
+				 function(data, status) {
+		   	if (status == 'success') {
 		   		alert('post order success!');
 		   	} else {
 		   		alert('post order failed!');
 		   	}
 		   });
+		window.food = [];
+		window.count = [];
+		window.price = [];
 }
 
 function cancelOrder() {
 	$('.table').find('tbody').empty();
+		window.food = [];
+		window.count = [];
+		window.price = [];
 }

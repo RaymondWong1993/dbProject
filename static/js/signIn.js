@@ -16,15 +16,17 @@ $(document).ready(function() {
 })
 
 function turnPage(btn) {
-    var restaurantName = $(btn).parent().find('h2');
+    var restaurantName = $(btn).parent();
+    restaurantName = restaurantName.parent();
+		restaurantName = restaurantName.find('h2');
 		restaurantName = restaurantName.text();
-		$.GET('/restaurantDetail/',
+		$.get('/restaurantDetail/',
 					{
 							'name': restaurantName
 					},
 					function(data, status) {
 							if (status == 'success') {
-									window.location = '/restaurantDetail/?='+restaurantName;
+									window.location = '/restaurantDetail/?name=' + restaurantName;
 							} else {
 									alert('餐厅详情打开失败！');
 							}
