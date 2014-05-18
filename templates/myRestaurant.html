@@ -37,7 +37,7 @@ l<!DOCTYPE html>
       <a class="list-group-item" data-toggle="modal" data-target="#order">
         <div class="row myOrderRow">
           <p class="col-xs-4">订单号：</p>
-          <p class="col-xs-4" id="orderNum">{{ forloop.counter }}</p>
+          <p class="col-xs-4" id="orderNum">{{ o.orderId }}</p>
         </div>
         <div class="row myOrderRow">
           <p class="col-xs-4">预订用餐时间：</p>
@@ -58,10 +58,10 @@ l<!DOCTYPE html>
       {% for food in foods %}
       <a href="javascript:void(0)" class="list-group-item foodBoxs" style="overflow: hidden;" id="foodBox{{ forloop.counter }}">
         <div class="row myOrderRow">
-        <img class="col-xs-3" src="/static/images/guangZhouJiuJia_2.jpg" style="width: 200px; height: 150px;"/>
+        <img class="col-xs-3" src="{{ food.image }}" style="width: 200px; height: 150px;"/>
         <div class="col-xs-2">
           <p>菜名：</p>
-          <p>{{ food.name }}</p>
+          <p class="name{{ forloop.counter }}">{{ food.name }}</p>
         </div>
         <div class="col-xs-2">
           <p>单价：</p>
