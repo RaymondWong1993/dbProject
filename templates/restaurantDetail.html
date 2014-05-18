@@ -5,6 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/carousel.css">
+  <link rel="stylesheet" href="/static/css/custom.css">
   <link rel="stylesheet" href="/static/css/restaurantDetail.css">
 </head>
 <body>
@@ -43,10 +44,12 @@
         </li>
         {% endfor %}
       </ul><!-- media list-->
+    {% if 'user' in session %}
+    <a class="btn btn-default btn-lg" data-toggle="modal" data-target="#addFoodModal" type="button" style="float: right; margin-right: 15px;" id="submitBtn">提交订单</a>
+    {% endif %}
     </div>
-    <a class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal" type="button" style="float: right" id="submitBtn">提交订单</a>
   </div><!-- container -->
-  <div class="modal fade" id="myModal">
+  <div class="modal fade" id="addFoodModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -81,9 +84,11 @@
     </div>
   </div>
   <!-- =====================================End of Main Container=================================== -->
+  {% include 'parts/login_box.html' %}
   <script src="/static/js/jquery-1.10.2.js"></script>
   <script src="/static/js/jquery.cookie.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
   <script src="/static/js/restaurantDetail.js"></script>
+  <script src="/static/js/signIn.js"></script>
 </body>
 </html>
