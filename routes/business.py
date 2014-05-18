@@ -21,9 +21,8 @@ def showMyRestaurant():
     for f in fields:
         info[f] = getattr(b, f)
 
-    print info
     foods = Item.queryBySupplier(b.id)
-    return render_template('restaurantDetail.html', info=info, foods=foods)
+    return render_template('myRestaurant.html', info=info, foods=foods)
 
 @app.route('/restaurantDetail/', methods=['GET', 'POST'])
 def showRestaurantDetail():
