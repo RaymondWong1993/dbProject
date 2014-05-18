@@ -13,6 +13,7 @@ class Order(Base):
     totalPrice = Column(Integer, default=0)
     status = Column(Integer, default=0)
     items = Column(Text, default='')
+    counts = Column(Text, default='')
     business = Column(String(32))
     customer = Column(String(32))
 
@@ -40,17 +41,18 @@ class Order(Base):
 
         g.session.commit()
 
-    def addItem(self, id=None):
-        if not id:
+    def addItem(self, name=None, count=None):
+        if not name or not count:
             return False
 
         g.session.add(self)
-        self.items = self.items + ',' + str(id)
+        self.items = self.items + ',' + str(name)
+        self.counts = self.counts + ',' + str(count)
         g.session.commit()
         return True
 
     def getItems(self):
-        return self.items.split(',')
+        return (self.items.split(','), self.counts.split(','))
 
     @classmethod
     def init(cls):

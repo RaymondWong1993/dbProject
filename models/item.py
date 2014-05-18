@@ -9,7 +9,7 @@ class Item(Base):
     __tablename__ = 'yummy_item'
 
     id = Column(Integer, Sequence('yummy_item_seq'), primary_key=True)
-    name = Column(String(32))
+    name = Column(String(32), unique=True)
     price = Column(Integer, default=0)
     image = Column(String(128), default="/static/images/default.png")
     describe = Column(String(512), default='')
@@ -50,7 +50,8 @@ class Item(Base):
             return None
 
         result = g.session.query(cls).filter_by(id=id).first()
-        g.session.expunge(result)
+        if result:
+            g.session.expunge(result)
         return result
 
     @classmethod
@@ -58,9 +59,10 @@ class Item(Base):
         if not name:
             return None
 
-        results = g.session.query(cls).filter_by(name=name).all()
-        g.session.expunge_all()
-        return results
+        result = g.session.query(cls).filter_by(name=name).first()
+        if result:
+            g.session.expunge(result)
+        return result
 
     @classmethod
     def queryBySupplier(cls, supplier=None):
@@ -68,13 +70,15 @@ class Item(Base):
             return None
 
         results = g.session.query(cls).filter_by(supplier=supplier).all()
-        g.session.expunge_all()
+        if results:
+            g.session.expunge_all()
         return results
 
     @classmethod
     def queryAll(cls):
         results = g.session.query(cls).all()
-        g.session.expunge_all()
+        if results:
+            g.session.expunge_all()
         return results
 
     @classmethod

@@ -24,3 +24,4 @@ def initDatabase():
     map(lambda x: Business(**x).save(), businesses_data)
 
     User(username='admin', hashpw='admin').save()
+    Item(name='姜葱鸡', describe='姜葱鸡介绍姜葱鸡介绍姜葱鸡介绍', price=38, supplier=5).save()
