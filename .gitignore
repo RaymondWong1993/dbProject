@@ -1,3 +1,7 @@
 
 *.pyc
 *~
+config.yaml
+db.sql
+deploy.sh
+index.wsgi
