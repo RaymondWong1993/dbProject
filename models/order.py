@@ -14,6 +14,7 @@ class Order(Base):
     status = Column(Integer, default=0)
     items = Column(Text, default='')
     counts = Column(Text, default='')
+    prices = Column(Text, default='')
     business = Column(String(32))
     customer = Column(String(32))
 

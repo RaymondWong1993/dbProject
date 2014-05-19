@@ -10,7 +10,6 @@ class Business(User):
     id = Column(Integer,ForeignKey('yummy_user.id') , primary_key=True)
     image = Column(String(512), default='/static/images/default.png')
     address = Column(String(512), default='')
-    category = Column(String(32), nullable=True)
     joinTime = Column(DateTime, default=datetime.datetime.now())
 
     __mapper_args__ = {
@@ -79,17 +78,6 @@ class Business(User):
     @classmethod
     def queryAll(cls):
         results =  g.session.query(cls).all()
-        if results:
-            map(lambda r: g.session.expunge(r), results)
-
-        return results
-
-    @classmethod
-    def queryByCategory(cls, category=None):
-        if not category:
-            return None
-
-        results =  g.session.query(cls).filter_by(category=category).all()
         if results:
             map(lambda r: g.session.expunge(r), results)
 

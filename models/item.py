@@ -13,7 +13,8 @@ class Item(Base):
     price = Column(Integer, default=0)
     image = Column(String(128), default="/static/images/default.png")
     describe = Column(String(512), default='')
-    supplier = Column(Integer)
+    category = Column(String(32), nullable=True)
+    supplier = Column(String(32))
 
     def __repr__(self):
         return "<Item" + str(self.__dict__) + ">"
@@ -65,6 +66,18 @@ class Item(Base):
         return result
 
     @classmethod
+    def queryBusinessByItemCategory(cls, category=None):
+        if not category:
+            return []
+
+        results =  g.session.query(cls).filter_by(category=category).all()
+        if results:
+            g.session.expunge_all()
+            return [x.supplier for x in results]
+        else:
+            return []
+
+    @classmethod
     def queryBySupplier(cls, supplier=None):
         if not supplier:
             return None
@@ -72,6 +85,7 @@ class Item(Base):
         results = g.session.query(cls).filter_by(supplier=supplier).all()
         if results:
             g.session.expunge_all()
+
         return results
 
     @classmethod
@@ -89,6 +103,18 @@ class Item(Base):
         result = g.session.query(cls).filter_by(id=id).first()
         if not result:
             raise ItemNotExistException
+
+        g.session.delete(result)
+        g.session.commit()
+
+    @classmethod
+    def deleteByName(cls, name=None):
+        if not name:
+            return False
+
+        result = g.session.query(cls).filter_by(name=name).first()
+        if not result:
+            return False
 
         g.session.delete(result)
         g.session.commit()

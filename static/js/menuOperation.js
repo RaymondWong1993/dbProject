@@ -16,13 +16,12 @@ deleteFood(btn) {
 		id_ = parseInt(id_);
     var foodName = '#name' + toString(id_);
     foodName = $(foodName).text();
-		$.post(/menuOperation/,
+		$.post('/order/remove/',
 					 {
-							 'operation': 'delete',
 							 'name': foodName
 					 },
 					 function(data, status) {
-							 if (status == 'success') {
+							 if (data.resp == 1) {
 									 alert('删除成功！');
 							 } else {
 									 alert('删除失败！');

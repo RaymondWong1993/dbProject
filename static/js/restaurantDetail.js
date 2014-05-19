@@ -57,21 +57,25 @@ function showOrder() {
 
 function confirmOrder() {
 	$('.table').find('tbody').empty();
-		var data_ = {};
-		data_['food'] = window.food;
-		data_['count'] = window.count;
-		data_['price'] = window.price;
+		foods = window.food.join(',');
+		counts = window.count.join(',');
+		prices = window.price.join(',');
+    restaurant = $('#restaurantName').html();
 	$.post('/order/create/',
-				 {
-						 info: data_
-				 },
-				 function(data, status) {
+				{
+            foods: foods,
+            counts: counts,
+            prices: prices,
+            restaurant: restaurant
+				},
+				function(data, status) {
 		   	if (status == 'success') {
 		   		alert('post order success!');
 		   	} else {
 		   		alert('post order failed!');
 		   	}
-		   });
+		    },
+        'Application/json');
 		window.food = [];
 		window.count = [];
 		window.price = [];
