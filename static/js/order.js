@@ -41,8 +41,8 @@ function showContent(orderInfo) {
 		} else {
 				var customerOrderNum = $('#myOrderRestaurant');
 				customerOrderNum = customerOrderNum.parent();
-				customerOrderNum = customerOrderNum.siblings();
-				customerOrderNum = customerOrderNum.find('font');
+				customerOrderNum = customerOrderNum.parent();
+				customerOrderNum = customerOrderNum.find('font').text();
 				$.post('/order/',
 							 {
 									 orderId: customerOrderNum
