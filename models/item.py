@@ -118,6 +118,7 @@ class Item(Base):
 
         g.session.delete(result)
         g.session.commit()
+        return True
 
     @classmethod
     def deleteAll(cls):

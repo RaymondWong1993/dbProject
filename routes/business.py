@@ -3,6 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import json
+import datetime
 from flask import render_template, request, session, abort, redirect, jsonify, Response
 from routes import app
 from models import Business, User, Item, Order
@@ -59,10 +60,12 @@ def getOrderInfo():
 
         f_data['orderId'] = str(o.id)
         f_data['restaurant'] = o.business
-        f_data['date'] = o.joinTime
-        f_data['address'] = o.address
-        f_data['contact'] = o.contact
+        f_data['date'] = o.createTime.strftime('%Y-%m-%d %H:%M:%S')
+        f_data['customer'] = o.customer
         f_data['totalPrice'] = o.totalPrice
+        b = Business.queryByUsername(o.business)
+        f_data['address'] = b.address
+        f_data['contact'] = b.contact
         detail = []
         foods = o.items.split(',')
         counts = o.items.split(',')
