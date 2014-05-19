@@ -107,9 +107,27 @@ def createOrder():
         else:
             return jsonify(resp=1)
 
-@app.route('/order/remove/', methods=['GET', 'POST'])
-def removeOrder():
+@app.route('/food/remove/', methods=['GET', 'POST'])
+def removeItem():
     if request.method == 'POST':
         name = request.form.get('name', None)
         resp = int(Item.deleteByName(name))
         return jsonify(resp=resp)
+
+@app.route('/food/create/', methods=['GET', 'POST'])
+def createItem():
+    if request.method == 'POST':
+        fields = ('name', 'price', 'category', 'describe')
+        fdata = {}
+        for f in fields:
+            fdata[f] = request.form.get(f)
+
+        fdata['supplier'] = session['user']
+        print fdata
+        try:
+            Item(**fdata).save()
+        except Exception, e:
+            print str(e)
+            return jsonify(resp=0)
+        else:
+            return jsonify(resp=1)

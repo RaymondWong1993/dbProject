@@ -16,7 +16,7 @@ deleteFood(btn) {
 		id_ = parseInt(id_);
     var foodName = '#name' + toString(id_);
     foodName = $(foodName).text();
-		$.post('/order/remove/',
+		$.post('/food/remove/',
 					 {
 							 'name': foodName
 					 },

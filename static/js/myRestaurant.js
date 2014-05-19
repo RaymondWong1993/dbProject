@@ -76,11 +76,21 @@ function postData() {
 		var describe = $('#addFoodIntro').val();
 		$.post('/food/create/',
 					 {
-							 image: image,
+							 // image: image,
 							 name: name,
 							 price: price,
-							 kinds: kinds,
+							 category: kinds,
 							 describe: describe
+					 }, function(data, status) {
+							 if (status == 'success') {
+									 if (data.resp == 1) {
+											 alert('添加菜式成功！');
+									 } else {
+											 alert('添加菜式失败！');
+									 }
+							 } else {
+									 alert('添加菜式失败！');
+							 }
 					 });
 }
 
@@ -145,7 +155,7 @@ function getPath(fileQuery, id) {
     reader.onload = function(e) {
 				$('#foodBox'+id).find('img').attr('src', e.target.result);
 		};
-    reader.readAsDataURL(file);
+    // reader.readAsDataURL(file);
 }
 
 function addFood() {
@@ -207,23 +217,22 @@ function addFood() {
         var offset = parseInt($('body').scrollTop()) + 400;
         $('body').scrollTop(offset);
     });
-    $.post('/menuOperation/',
-					 {
-							 'operation': 'add',
-							 'name': foodName,
-							 'price': foodPrice,
-							 'describe': foodIntro,
-							 'image': image,
-							 'foodKinds': foodKinds
-					 }, function(data, status) {
-							 if (status == 'success') {
-									 if (data.resp == 1) {
-											 alert('添加菜式成功！');
-									 } else {
-											 alert('添加菜式失败！');
-									 }
-							 } else {
-									 alert('添加菜式失败！');
-							 }
-					 });
+    // $.post('/food/create/',
+		// 			 {
+		// 					 'name': foodName,
+		// 					 'price': foodPrice,
+		// 					 'describe': foodIntro,
+		// 					 // 'image': image,
+		// 					 'category': foodKinds
+		// 			 }, function(data, status) {
+		// 					 if (status == 'success') {
+		// 							 if (data.resp == 1) {
+		// 									 alert('添加菜式成功！');
+		// 							 } else {
+		// 									 alert('添加菜式失败！');
+		// 							 }
+		// 					 } else {
+		// 							 alert('添加菜式失败！');
+		// 					 }
+		// 			 });
 }
