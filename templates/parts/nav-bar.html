@@ -28,9 +28,32 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <!-- Baidu Search -->
+			<SCRIPT language=javascript>
+			function g(formname)	{
+			var url = "http://www.baidu.com/baidu";
+			if (formname.s[1].checked) {
+				formname.ct.value = "2097152";
+			}
+			else {
+				formname.ct.value = "0";
+			}
+			formname.action = url;
+			return true;
+			}
+			</SCRIPT>
+			</form>
+      <!-- Baidu Search -->
+      <form class="navbar-form navbar-left" role="search" name="f1" onsubmit="return g(this)">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="美食搜索">
+          <input type="text" class="form-control" placeholder="美食搜索" name="word" size="30" maxlength="100">
+					<input name="tn" type="hidden" value="bds">
+					<input name="cl" type="hidden" value="3">
+					<input name="ct" type="hidden">
+					<input name="si" type="hidden" value="yummyfood.sinaapp.com">
+					<input name="ie" type="hidden" value="utf-8">
+					<input name="s" type="radio" style="display: none">
+					<input name="s" type="radio" style="display: none" checked>
         </div>
         <button type="submit" class="btn btn-default">提交</button>
       </form>
