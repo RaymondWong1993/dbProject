@@ -31,6 +31,10 @@ def showMyRestaurant():
             'price': o.totalPrice
         })
     foods = Item.queryBySupplier(session['user'])
+    if foods:
+        categorys = '，'.join([x.category for x in foods])
+        info['mainFoods'] = categorys
+
     return render_template('myRestaurant.html', info=info, foods=foods, order=forders)
 
 @app.route('/restaurantDetail/', methods=['GET', 'POST'])
