@@ -36,9 +36,9 @@ $(document).ready(function() {
 });
 
 function deleteFood(btn) {
-    var id_ = $(btn).attr(id).substr(9);
+    var id_ = $(btn).attr('id').substr(9);
 		id_ = parseInt(id_);
-    var foodName = '#name' + toString(id_);
+    var foodName = '#name' + id_;
     foodName = $(foodName).text();
 		$.post('/food/remove/',
 					 {

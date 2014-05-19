@@ -56,12 +56,12 @@ l<!DOCTYPE html>
     <div id="menuBox" class="box">
     <div class="list-group" id="mainFoodBox">
       {% for food in foods %}
-      <a href="javascript:void(0)" class="list-group-item foodBoxs" style="overflow: hidden;" id="foodBox{{ loop.depth }}">
+      <a href="javascript:void(0)" class="list-group-item foodBoxs" style="overflow: hidden;" id="foodBox{{ loop.index0 }}">
         <div class="row myOrderRow">
         <img class="col-xs-3" src="{{ food.image }}" style="width: 200px; height: 150px;"/>
         <div class="col-xs-2">
           <p>菜名：</p>
-          <p class="name{{ loop.depth }}">{{ food.name }}</p>
+          <p id="name{{ loop.index0 }}">{{ food.name }}</p>
         </div>
         <div class="col-xs-2">
           <p>单价：</p>
@@ -76,7 +76,7 @@ l<!DOCTYPE html>
           <p>{{ food.describe }}</p>
         </div>
         <div>
-          <span class="glyphicon glyphicon-remove" style="float: right; margin-right: 10px;" id="deleteBtn{{ loop.depth }}"></span>
+          <span class="glyphicon glyphicon-remove" style="float: right; margin-right: 10px;" id="deleteBtn{{ loop.index0 }}"></span>
         </div>
         </div>
       </a>
