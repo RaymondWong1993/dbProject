@@ -61,7 +61,10 @@ function confirmOrder() {
 		data_['food'] = window.food;
 		data_['count'] = window.count;
 		data_['price'] = window.price;
-	$.post('/order/create/', data_,
+	$.post('/order/create/',
+				 {
+						 info: data_
+				 },
 				 function(data, status) {
 		   	if (status == 'success') {
 		   		alert('post order success!');
