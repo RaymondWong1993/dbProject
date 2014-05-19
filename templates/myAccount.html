@@ -36,6 +36,7 @@
     <div class="list-group" id="orderBox">
       {% for o in order %}
       <a class="list-group-item" data-toggle="modal" data-target="#order">
+				<font style="display: none;">{{ o.id }}</font>
         <div class="row myOrderRow">
           <p class="col-xs-4">餐厅：</p>
           <p class="col-xs-4" id="myOrderRestaurant">{{ o.name }}</p>

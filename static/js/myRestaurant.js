@@ -35,14 +35,13 @@ $(document).ready(function() {
 		});
 });
 
-deleteFood(btn) {
+function deleteFood(btn) {
     var id_ = $(btn).attr(id).substr(9);
 		id_ = parseInt(id_);
     var foodName = '#name' + toString(id_);
     foodName = $(foodName).text();
-		$.post(/menuOperation/,
+		$.post('/food/remove/',
 					 {
-							 'operation': 'delete',
 							 'name': foodName
 					 },
 					 function(data, status) {
@@ -75,7 +74,7 @@ function postData() {
 		var price = $('#addFoodPrice').val();
 		var kinds = $('#addFoodKinds').val();
 		var describe = $('#addFoodIntro').val();
-		$.post('/myRestaurant/',
+		$.post('/food/create/',
 					 {
 							 image: image,
 							 name: name,
@@ -161,11 +160,16 @@ function addFood() {
     var addBox = $('#addBox');
     var sure_addBtn = $('#sure_addBtn');
     var addBtn = $('#addBtn');
+		var cancelBtn = $('#cancel_addBtn');
     var foodBoxs = $('.foodBoxs');
-    var id = $(foodBoxs[foodBoxs.length - 1]).attr('id').substr(7);
+		if (foodBoxs.length == 0)
+				var id = 0;
+		else
+				var id = $(foodBoxs[foodBoxs.length - 1]).attr('id').substr(7);
     id = parseInt(id) + 1;
 
     addBox.slideToggle("slow");
+    cancelBtn.fadeToggle("slow");
     sure_addBtn.fadeToggle("slow",function() {
         // add new foodBox
         var newNode  = '<a href="javascript:void(0)" class="list-group-item foodBoxs" style="overflow: hidden;" id="foodBox'+id+'">'+

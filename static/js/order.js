@@ -39,10 +39,13 @@ function showContent(orderInfo) {
 									 }
 							 }, 'json');
 		} else {
+				var customerOrderNum = $('#myOrderRestaurant');
+				customerOrderNum = customerOrderNum.parent();
+				customerOrderNum = customerOrderNum.siblings();
+				customerOrderNum = customerOrderNum.find('font');
 				$.post('/order/',
 							 {
-									 restaurant: $('#myOrderRestaurant').text(),
-									 date: $('#myOrderDate').text()
+									 orderId: customerOrderNum
 							 },
 							 function(data, status) {
 									 if (status == 'success') {
