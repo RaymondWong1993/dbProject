@@ -57,12 +57,11 @@ function showOrder() {
 
 function confirmOrder() {
 	$('.table').find('tbody').empty();
-	$.post('/restaurantDetail/',
-		   {
-		   	food: window.food,
-		   	count: window.count,
-		   	price: window.price
-		   },
+		var data_ = {};
+		data_['food'] = window.food;
+		data_['count'] = window.count;
+		data_['price'] = window.price;
+	$.post('/order/create/', data_,
 				 function(data, status) {
 		   	if (status == 'success') {
 		   		alert('post order success!');
